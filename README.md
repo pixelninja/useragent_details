@@ -12,7 +12,7 @@
 
 ## Usage
 
-Checks the users browser, version, platform, platform version, if it's a mobile device, a robot or using chromeframe and outputs results into the param pool. Easy!
+Checks the users browser, version, platform, platform version, if it's a mobile device, a robot or using chromeframe and outputs results into a custom datasource. Easy!
 
 ## Credits
 
