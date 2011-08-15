@@ -31,11 +31,28 @@
 			return FALSE;
 		}
 		
-		public function operatingSystem() {
-		
-		}
-		
 		public function grab(&$param_pool) {
+			// set ip address
+			//$ip = $_SERVER['REMOTE_ADDR'];
+			$ip = '203.144.8.51';
+			// get contents from external api
+			$content = file_get_contents('http://api.hostip.info/?ip='.$ip);
+			// process data into variables
+			if ($content != FALSE) {
+				$xml = new SimpleXmlElement($content);
+				
+				$parent = $xml->children('gml', TRUE)->featureMember->children('', TRUE)->Hostip;
+				$coordinates = $parent->ipLocation->children('gml', TRUE)->pointProperty->Point->coordinates;
+				
+				$longlat = explode(',', $coordinates);
+				$location['longitude'] = $longlat[0];
+				$location['latitude'] = $longlat[1];	
+					
+			    $location['city'] = $parent->children('gml', TRUE)->name;
+				$location['country'] =  $parent->countryName;
+				$location['country_abbr'] =  $parent->countryAbbrev;
+			}
+			// list of operating systems
         	// Sourced from http://www.geekpedia.com/code47_Detect-operating-system-from-user-agent-string.html
 			$osList = array(
 				'Windows 7' => 'windows nt 6.1',
@@ -70,7 +87,7 @@
 				'OS2' => 'os/2',
 				'SearchBot'=>'(nuhk)|(googlebot)|(yammybot)|(openbot)|(slurp)|(msnbot)|(ask jeeves/teoma)|(ia_archiver)'
 			);
-			
+			// output operating system in $os
 			$useragent = HTTP_USER_AGENT;
 			$useragent = strtolower($useragent);
 			
@@ -81,9 +98,10 @@
 					$os = "Could not detect";
 				}
 			}
-			
+			//initiate class
 			$browser = new Browser();
 			
+			// root element with attributes
 			$result = new XMLElement(
 				$this->dsParamROOTELEMENT, 
 				null, 
@@ -93,7 +111,7 @@
 					'robot'=>$browser->isRobot() ? 'yes' : 'no'
 				)
 			);
-			
+			// browser
 			$result->appendChild(
 				new XMLElement(
 					'browser',
@@ -104,21 +122,34 @@
 					)
 				)
 			);
-			$result->appendChild(
-				new XMLElement(
-					'platform',
-					$browser->getPlatform(),
-					array(
-						'handle' => Lang::createHandle($browser->getPlatform())
-					)
-				)
-			);
+			// platform
 			$result->appendChild(
 				new XMLElement(
 					'operating-system',
 					$os,
 					array(
-						'handle' => Lang::createHandle($os)
+						'handle' => Lang::createHandle($os),
+						'platform' => $browser->getPlatform()
+					)
+				)
+			);
+			// IP address
+			$result->appendChild(
+				new XMLElement(
+					'ip-address',
+					$ip
+				)
+			);
+			// user location
+			$result->appendChild(
+				new XMLElement(
+					'location',
+					$location['country'].', '.$location['city'],
+					array(
+						'country' => Lang::createHandle($location['country']),
+						'city' => Lang::createHandle($location['city']),
+						'latitude' => $location['latitude'],
+						'longitude' => $location['longitude']
 					)
 				)
 			);
