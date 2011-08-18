@@ -9,7 +9,7 @@
 			return array(
 				'name' => 'Support Details',
 				'version' => '1.0',
-				'release-date' => '2011-07-18',
+				'release-date' => '2011-08-18',
 				'author' => array(
 				 		'name' => 'Phill Gray',
 						'email' => 'phill@randb.com.au'
@@ -67,27 +67,9 @@
 		    if ($context['type'] != 'support_details') return;
 			
 			// Get the ip address
-			//$ip = $_SERVER['REMOTE_ADDR'];
+			$ip = $_SERVER['REMOTE_ADDR'];
 			$ip = '203.144.8.51';
-			
-			// get contents from external api
-			$content = file_get_contents('http://api.hostip.info/get_xml.php?ip='.$ip);
-			// process data into variables
-			if ($content != FALSE) {
-				$xml = new SimpleXmlElement($content);
-				
-				$parent = $xml->children('gml', TRUE)->featureMember->children('', TRUE)->Hostip;
-				$coordinates = $parent->ipLocation->children('gml', TRUE)->pointProperty->Point->coordinates;
-				
-				$longlat = explode(',', $coordinates);
-				$location['longitude'] = $longlat[0];
-				$location['latitude'] = $longlat[1];	
-					
-			    $location['city'] = $parent->children('gml', TRUE)->name;
-				$location['country'] =  $parent->countryName;
-				$location['country_abbr'] =  $parent->countryAbbrev;
-				$location['ip'] =  $ip;
-			}
+			$location = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
 			
 			$div = new XMLElement('div');
 			
@@ -105,8 +87,7 @@
 			$dl->appendChild(new XMLElement('dd', __($browser->getBrowser().' '.$browser->getVersion())));
 		
 			$dl->appendChild(new XMLElement('dt', __('IP address')));
-			//$dl->appendChild(new XMLElement('dd', __($_SERVER['REMOTE_ADDR'])));
-			$dl->appendChild(new XMLElement('dd', __('203.144.8.51')));
+			$dl->appendChild(new XMLElement('dd', __($ip)));
 		
 			$dl->appendChild(new XMLElement('dt', __('Mobile device?')));
 			$dl->appendChild(new XMLElement('dd', __($browser->isMobile() ? 'Yes' : 'No')));
@@ -158,13 +139,10 @@
 			
 			$dl = new XMLElement('dl');
 			$dl->appendChild(new XMLElement('dt', __('Location')));
-			$dl->appendChild(new XMLElement('dd', $location['city'].', '.$location['country_abbr']));
+			$dl->appendChild(new XMLElement('dd', $location['geoplugin_city'].', '.$location['geoplugin_region'].', '.$location['geoplugin_countryName']));
 		
 			$dl->appendChild(new XMLElement('dt', __('Latitude/Longitude')));
-			$dl->appendChild(new XMLElement('dd', $location['latitude'].' / '.$location['longitude']));
-		
-			$dl->appendChild(new XMLElement('dt', __('Flag')));
-			$dl->appendChild(new XMLElement('img', '', array('src'=>'http://api.hostip.info/flag.php?ip='.$ip)));
+			$dl->appendChild(new XMLElement('dd', $location['geoplugin_latitude'].' / '.$location['geoplugin_longitude']));
 		
 		   	$div->appendChild(new XMLElement('h4', __('Location')));
 			$div->appendChild($dl);

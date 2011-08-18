@@ -12,4 +12,6 @@ jQuery(function($){
    	$('div.support_details dt.js').next().text('Yes');
    	//Colour depth
    	$('div.support_details dt.depth').next().text(screen.colorDepth + ' bit');
+   	
+   	console.log($.browser);
 });

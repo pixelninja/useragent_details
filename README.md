@@ -1,19 +1,17 @@
-# Browser Detection
+# Support Details
 
 - Version: 1.0
 - Author: Phill Gray
-- Build Date: 2011-07-25
-- Requirements: Symphony 2.2.1
+- Build Date: 2011-08-18
+- Requirements: Symphony 2.2
 
 ## Installation
 
-- Upload the 'browser_detection' folder to your Symphony 'extensions' folder.
-- Enable it by selecting "Browser Detection", choose Enable from the with-selected menu, then click Apply.
+- Upload the 'support_details' folder to your Symphony 'extensions' folder.
+- Enable it by selecting "Support Details", choose Enable from the with-selected menu, then click Apply.
 
 ## Usage
 
-Checks the users browser, version, platform, platform version, if it's a mobile device, a robot or using chromeframe and outputs results into a custom datasource. Easy!
+Bundles a datasource that outputs the users browser, version, platform, platform version, if it's a mobile device, a robot or using chromeframe and IP address. Easy!
 
-## Credits
-
-The main class was sourced from http://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php/ so all credit to Chris Schuld and the original creator, Gary White.
+Also provides a support panel for Nick Dunn's Dashboard extension with a whole slew of support info.
