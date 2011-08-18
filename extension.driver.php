@@ -68,7 +68,7 @@
 			
 			// Get the ip address
 			$ip = $_SERVER['REMOTE_ADDR'];
-			$ip = '203.144.8.51';
+			//$ip = '203.144.8.51';
 			$location = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
 			
 			$div = new XMLElement('div');
