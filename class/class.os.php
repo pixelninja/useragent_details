@@ -29,8 +29,29 @@
 							'Mac OS X Leopard' => 'mac os x 10.5',
 							'Mac OS X Snow Leopard' => 'mac os x 10.6',
 							'Mac OS X Lion' => 'mac os x 10.7',
+							'Mac iOS 4.0.1' => 'os 4_0_1 like mac os x',
+							'Mac iOS 4.0' => 'os 4_0 like mac os x',
+							'Mac iOS 4.1' => 'os 4_1 like mac os x',
+							'Mac iOS 4.2.1' => 'os 4_2_1 like mac os x',
+							'Mac iOS 4.2.5' => 'os 4_2_5 like mac os x',
+							'Mac iOS 4.2' => 'os 4_2 like mac os x',
+							'Mac iOS 4.3.1' => 'os 4_3_1 like mac os x',
+							'Mac iOS 4.3.2' => 'os 4_3_2 like mac os x',
+							'Mac iOS 4.3.3' => 'os 4_3_3 like mac os x',
+							'Mac iOS 4.3.4' => 'os 4_3_4 like mac os x',
+							'Mac iOS 4.3.5' => 'os 4_3_5 like mac os x',
+							'Mac iOS 4.3' => 'os 4_3 like mac os x',
+							'Mac iOS 5.0' => 'os 5_0 like mac os x',
 							'Mac OS X (version unknown)' => 'mac os x',
 							'Mac OS (classic)' => '(mac_powerpc)|(macintosh)',
+							'Android 2.0 Eclair' => 'android 2.0',
+							'Android 2.1 Eclair' => 'android 2.1',
+							'Android 2.2 Froyo' => 'android 2.2',
+							'Android 2.3 Gingerbread' => 'android 2.3',
+							'Android 3.0 Honeycomb' => 'android 3.0',
+							'Android 3.1 Honeycomb' => 'android 3.1',
+							'Android 3.2 Honeycomb' => 'android 3.2',
+							'Android 4.0 Ice Cream Sandwich' => 'android 4.0',
 							'QNX' => 'QNX',
 							'BeOS' => 'beos',
 							'OS2' => 'os/2',
@@ -40,7 +61,7 @@
 			// output operating system in $os
 			$useragent = HTTP_USER_AGENT;
 			$useragent = strtolower($useragent);
-			
+		
 			foreach($osList as $os=>$match) {
 				if (preg_match('/' . $match . '/i', $useragent)) {
 					break;
@@ -48,6 +69,7 @@
 					$os = "Could not detect";
 				}
 			}
+			
 			
 			return $os;
 		}

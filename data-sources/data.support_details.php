@@ -37,7 +37,7 @@
 			$ip = $_SERVER['REMOTE_ADDR'];
 			//$ip = '203.144.8.51';
 			$location = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
-
+			
 			//initiate classes
 			$os = new os();
 			$browser = new Browser();
