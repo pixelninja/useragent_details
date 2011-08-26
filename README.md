@@ -20,7 +20,7 @@ Also provides a support panel for Nick Dunn's Dashboard extension with a whole s
 
 In no way is this extension a replacement for ie conditionals.
 
-** Do not use this extension to soley provide content/styles etc to a couple of browsers only. There are dozens of browsers out there in use, so you will only harm your website by isolating it. You should create your site as normal and use this extension to add content specific to certain technologies, like tablets, mobiles or html5 compatible/non-compatible browsers.
+**Do not use this extension to soley provide content/styles etc to a couple of browsers only. There are dozens of browsers out there in use, so you will only harm your website by isolating it. You should create your site as normal and use this extension to add content specific to certain technologies, like tablets, mobiles or html5 compatible/non-compatible browsers.**
 
 A use case might be: You need to style your site for a tablet, but your main design has massive hero images that will slow it down. Using media queries will only set that area to `display: none` so using this extension to not show the content if it's a tablet OS will eliminate that problem
 
