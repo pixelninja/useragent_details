@@ -2,7 +2,7 @@
 
 - Version: 1.0
 - Author: Phill Gray
-- Build Date: 2011-08-18
+- Build Date: 2011-08-26
 - Requirements: Symphony 2.2
 
 ## Installation

@@ -9,7 +9,7 @@
 			return array(
 				'name' => 'Support Details',
 				'version' => '1.0',
-				'release-date' => '2011-08-18',
+				'release-date' => '2011-08-26',
 				'author' => array(
 				 		'name' => 'Phill Gray',
 						'email' => 'phill@randb.com.au'
