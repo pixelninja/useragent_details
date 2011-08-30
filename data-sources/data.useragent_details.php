@@ -1,11 +1,11 @@
 <?php
 	
-	require_once(EXTENSIONS . '/support_details/class/class.os.php');
-	require_once(EXTENSIONS . '/support_details/class/class.browser.php');
+	require_once(EXTENSIONS . '/useragent_details/class/class.os.php');
+	require_once(EXTENSIONS . '/useragent_details/class/class.browser.php');
 	
-	Class datasourcesupport_details extends Datasource{
+	Class datasourceuseragent_details extends Datasource{
 		
-		public $dsParamROOTELEMENT = 'support-details';
+		public $dsParamROOTELEMENT = 'useragent-details';
 		public $dsParamLIMIT = '1';
 		public $dsParamSTARTPAGE = '1';
 		
@@ -15,7 +15,7 @@
 		
 		public function about(){
 			return array(
-					'name' => 'Support Details',
+					'name' => 'Useragent Details',
 					'author' => array(
 							'name' => 'Phill Gray',
 							'website' => 'phill@randb.com.au'
