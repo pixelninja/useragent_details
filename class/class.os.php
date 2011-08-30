@@ -62,12 +62,16 @@
 			$useragent = HTTP_USER_AGENT;
 			$useragent = strtolower($useragent);
 		
-			foreach($osList as $os=>$match) {
-				if (preg_match('/' . $match . '/i', $useragent)) {
-					break;
-				} else {
-					$os = "Could not detect";
+			if(isset($useragent) && !empty($useragent)) {
+				foreach($osList as $os=>$match) {
+					if (preg_match('/' . $match . '/i', $useragent)) {
+						break;
+					} else {
+						$os = "Could not detect";
+					}
 				}
+			} else {
+				$os = "Could not detect";
 			}
 			
 			
