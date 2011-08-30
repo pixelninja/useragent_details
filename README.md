@@ -1,6 +1,6 @@
 # Useragent Details
 
-- Version: 1.0
+- Version: 1.1
 - Author: Phill Gray
 - Build Date: 2011-08-30
 - Requirements: Symphony 2.2
@@ -13,6 +13,8 @@
 ## Usage
 
 Bundles a datasource that outputs the users browser, version, platform, platform version, if it's a mobile device, a robot or using chromeframe and IP address. Easy!
+
+There is a setting on the preferences page to include geolocationing based on the IP address using Geoplugin. This is disabled by default as some people don't want the page load delay associated with geolocationing.
 
 ## Uses
 

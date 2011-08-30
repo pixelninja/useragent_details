@@ -35,8 +35,7 @@
 		public function grab(&$param_pool) {
 			// Get the ip address
 			$ip = $_SERVER['REMOTE_ADDR'];
-			//$ip = '203.144.8.51';
-			$location = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+			$ip = '203.144.8.51';
 			
 			//initiate classes
 			$os = new os();
@@ -81,21 +80,25 @@
 					$ip
 				)
 			);
-			// user location
-			$result->appendChild(
-				new XMLElement(
-					'location',
-					$location['geoplugin_city'].', '.$location['geoplugin_countryName'],
-					array(
-						'city' => Lang::createHandle($location['geoplugin_city']),
-						'region' => Lang::createHandle($location['geoplugin_region']),
-						'country' => Lang::createHandle($location['geoplugin_countryName']),
-						'abbr' => Lang::createHandle($location['geoplugin_countryCode']),
-						'latitude' => $location['geoplugin_latitude'],
-						'longitude' => $location['geoplugin_longitude']
+			
+			if(Symphony::Configuration()->get('geoplugin', 'useragent_details') == 'yes') {
+				$location = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+				// user location
+				$result->appendChild(
+					new XMLElement(
+						'location',
+						$location['geoplugin_city'].', '.$location['geoplugin_countryName'],
+						array(
+							'city' => Lang::createHandle($location['geoplugin_city']),
+							'region' => Lang::createHandle($location['geoplugin_region']),
+							'country' => Lang::createHandle($location['geoplugin_countryName']),
+							'abbr' => Lang::createHandle($location['geoplugin_countryCode']),
+							'latitude' => $location['geoplugin_latitude'],
+							'longitude' => $location['geoplugin_longitude']
+						)
 					)
-				)
-			);
+				);
+			}
 			
 			return $result;
 		}
