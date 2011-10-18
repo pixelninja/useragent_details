@@ -35,7 +35,6 @@
 		public function grab(&$param_pool) {
 			// Get the ip address
 			$ip = $_SERVER['REMOTE_ADDR'];
-			$ip = '203.144.8.51';
 			
 			//initiate classes
 			$os = new os();
