@@ -1,6 +1,6 @@
 # Useragent Details
 
-- Version: 1.1
+- Version: 1.1.1
 - Author: Phill Gray
 - Build Date: 2011-08-30
 - Requirements: Symphony 2.2

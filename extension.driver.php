@@ -8,7 +8,7 @@
 		public function about(){
 			return array(
 				'name' => 'Useragent Details',
-				'version' => '1.1',
+				'version' => '1.1.1',
 				'release-date' => '2011-08-30',
 				'author' => array(
 				 		'name' => 'Phill Gray',
