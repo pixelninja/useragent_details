@@ -8,8 +8,8 @@
 		public function about(){
 			return array(
 				'name' => 'Useragent Details',
-				'version' => '1.1.1',
-				'release-date' => '2011-08-30',
+				'version' => '1.1.2',
+				'release-date' => '2012-01-19',
 				'author' => array(
 				 		'name' => 'Phill Gray',
 						'email' => 'pixel.ninjad@gmail.com'
