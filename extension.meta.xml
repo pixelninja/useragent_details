@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="useragent_details" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>Useragent Details</name>
+	<description>Detect user browser/OS details</description>
+	<repo type="github">https://github.com/pixelninja/useragent_details</repo>
+	<url type="discuss">http://symphony-cms.com/discuss/thread/76220/</url>
+	<types>
+		<type>Other</type>
+	</types>
+	<authors>
+		<author>
+			<name github="pixelninja" symphony="touchstone">Phillip Gray</name>
+			<website>http://www.touchstone-dev.co.nz</website>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.1.2" date="2012-01-19" min="2.2" />
+	</releases>
+</extension>
