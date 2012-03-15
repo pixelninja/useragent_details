@@ -1,18 +1,18 @@
 <?php
-	
+
 	require_once(EXTENSIONS . '/useragent_details/class/class.os.php');
 	require_once(EXTENSIONS . '/useragent_details/class/class.browser.php');
-	
+
 	Class datasourceuseragent_details extends Datasource{
-		
+
 		public $dsParamROOTELEMENT = 'useragent-details';
 		public $dsParamLIMIT = '1';
 		public $dsParamSTARTPAGE = '1';
-		
+
 		public function __construct(&$parent, $env=NULL, $process_params=true){
 			parent::__construct($parent, $env, $process_params);
 		}
-		
+
 		public function about(){
 			return array(
 					'name' => 'Useragent Details',
@@ -21,30 +21,29 @@
 							'website' => 'phill@randb.com.au'
 						),
 					'description' => 'This datasource outputs the users browser info and OS info into usable XML data.',
-					);	
+					);
 		}
-		
+
 		public function getSource(){
 			return NULL;
 		}
-		
+
 		public function allowEditorToParse(){
 			return FALSE;
 		}
-		
+
 		public function grab(&$param_pool) {
 			// Get the ip address
 			$ip = $_SERVER['REMOTE_ADDR'];
-			$ip = '203.144.8.51';
-			
+
 			//initiate classes
 			$os = new os();
 			$browser = new Browser();
-			
+
 			// root element with attributes
 			$result = new XMLElement(
-				$this->dsParamROOTELEMENT, 
-				null, 
+				$this->dsParamROOTELEMENT,
+				null,
 				array(
 					'mobile'=>$browser->isMobile() ? 'yes' : 'no',
 					'chromeframe'=>$browser->isChromeFrame() ? 'yes' : 'no',
@@ -80,9 +79,35 @@
 					$ip
 				)
 			);
-			
+
 			if(Symphony::Configuration()->get('geoplugin', 'useragent_details') == 'yes') {
-				$location = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+				$cache_id = md5('useragent_details-geoplugin-' . $ip);
+				$cache = new Cacheable(Symphony::Database());
+				$cachedData = $cache->check($cache_id);
+
+				// No data has been cached previously
+				if(!$cachedData) {
+					include_once(TOOLKIT . '/class.gateway.php');
+
+					$ch = new Gateway;
+					$ch->init('http://www.geoplugin.net/php.gp?ip='.$ip);
+					$response = $ch->exec();
+					$info = $ch->getInfoLast();
+
+					// We expected a 200 (OK)
+					// It didn't come, so just return the existing $result
+					if($info['http_code'] !== 200) {
+						return $result;
+					}
+
+					$cache->write($cache_id, $response, 1440); // Cache lifetime of 1 Day
+					$location = unserialize($response);
+				}
+				// fill data from the cache
+				else {
+					$location = unserialize($cachedData['data']);
+				}
+
 				// user location
 				$result->appendChild(
 					new XMLElement(
@@ -99,7 +124,7 @@
 					)
 				);
 			}
-			
+
 			return $result;
 		}
 	}

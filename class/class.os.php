@@ -54,8 +54,8 @@
 							'Android 4.0 Ice Cream Sandwich' => 'android 4.0',
 							'QNX' => 'QNX',
 							'BeOS' => 'beos',
-							'OS2' => 'os/2',
-							'SearchBot'=>'(nuhk)|(googlebot)|(yammybot)|(openbot)|(slurp)|(msnbot)|(ask jeeves/teoma)|(ia_archiver)'
+							'OS2' => 'os\/2',
+							'SearchBot'=>'(nuhk)|(googlebot)|(yammybot)|(openbot)|(slurp)|(msnbot)|(ask jeeves\/teoma)|(ia_archiver)'
 						);
 						
 			// output operating system in $os
