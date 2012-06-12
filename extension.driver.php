@@ -1,15 +1,14 @@
 <?php
 	
-	require_once(EXTENSIONS . '/useragent_details/class/class.browser.php');
-	require_once(EXTENSIONS . '/useragent_details/class/class.os.php');
+	require_once(EXTENSIONS . '/useragent_details/class/class.geolocation.php');
 	
 	Class extension_useragent_details extends Extension{
 	
 		public function about(){
 			return array(
 				'name' => 'Useragent Details',
-				'version' => '1.1.2',
-				'release-date' => '2012-01-19',
+				'version' => '1.2',
+				'release-date' => '2012-06-12',
 				'author' => array(
 				 		'name' => 'Phill Gray',
 						'email' => 'pixel.ninjad@gmail.com'
@@ -29,6 +28,11 @@
 					'page' => '/system/preferences/',
 					'delegate' => 'Save',
 					'callback' => 'savePreferences'
+				),
+				array(
+					'page' => '/frontend/',
+					'delegate' => 'FrontendParamsPostResolve',
+					'callback' => 'addParameters'
 				)
 			);
 		}
@@ -69,7 +73,7 @@
 			$fieldset->appendChild($div);
 		}
 		
-		/**
+		/*
 		 * Save preferences
 		 *
 		 * @param array $context
@@ -87,6 +91,21 @@
 				$context['settings']['useragent_details'] = array('geoplugin' => 'no');
 			}			
 		}
+		
+		/*
+		 * Append lat/long/country to param pool
+		 */
+		public function addParameters($context) {
+			if(Symphony::Configuration()->get('geoplugin', 'useragent_details') == 'yes') {
+				//initiate class
+				$geolocation = new geolocation();
+				$location = $geolocation->geolocation();
+			
+	        	$context['params']['ua-latitude'] = $location['geoplugin_latitude'];
+	        	$context['params']['ua-longitude'] = $location['geoplugin_longitude'];
+	        	$context['params']['ua-country'] = $location['geoplugin_countryName'];
+			}
+        }
 
 	}
 ?>

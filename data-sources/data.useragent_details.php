@@ -2,6 +2,7 @@
 
 	require_once(EXTENSIONS . '/useragent_details/class/class.os.php');
 	require_once(EXTENSIONS . '/useragent_details/class/class.browser.php');
+	require_once(EXTENSIONS . '/useragent_details/class/class.geolocation.php');
 
 	Class datasourceuseragent_details extends Datasource{
 
@@ -35,7 +36,8 @@
 		public function grab(&$param_pool) {
 			// Get the ip address
 			$ip = $_SERVER['REMOTE_ADDR'];
-
+			//$ip = '122.56.115.160';
+			
 			//initiate classes
 			$os = new os();
 			$browser = new Browser();
@@ -80,35 +82,11 @@
 				)
 			);
 
+			// user location
 			if(Symphony::Configuration()->get('geoplugin', 'useragent_details') == 'yes') {
-				$cache_id = md5('useragent_details-geoplugin-' . $ip);
-				$cache = new Cacheable(Symphony::Database());
-				$cachedData = $cache->check($cache_id);
-
-				// No data has been cached previously
-				if(!$cachedData) {
-					include_once(TOOLKIT . '/class.gateway.php');
-
-					$ch = new Gateway;
-					$ch->init('http://www.geoplugin.net/php.gp?ip='.$ip);
-					$response = $ch->exec();
-					$info = $ch->getInfoLast();
-
-					// We expected a 200 (OK)
-					// It didn't come, so just return the existing $result
-					if($info['http_code'] !== 200) {
-						return $result;
-					}
-
-					$cache->write($cache_id, $response, 1440); // Cache lifetime of 1 Day
-					$location = unserialize($response);
-				}
-				// fill data from the cache
-				else {
-					$location = unserialize($cachedData['data']);
-				}
-
-				// user location
+				$geolocation = new geolocation();
+				$location = $geolocation->geolocation();
+				
 				$result->appendChild(
 					new XMLElement(
 						'location',
