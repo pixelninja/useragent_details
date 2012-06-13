@@ -3,19 +3,6 @@
 	require_once(EXTENSIONS . '/useragent_details/class/class.geolocation.php');
 	
 	Class extension_useragent_details extends Extension{
-	
-		public function about(){
-			return array(
-				'name' => 'Useragent Details',
-				'version' => '1.2',
-				'release-date' => '2012-06-12',
-				'author' => array(
-				 		'name' => 'Phill Gray',
-						'email' => 'pixel.ninjad@gmail.com'
-					),
-				'description' => 'Detects the users browser/version and OS/version, and outputs as data into a custom datasource.'
-		 		);
-		}
 
 		public function getSubscribedDelegates() {
 			return array(
